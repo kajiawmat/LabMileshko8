@@ -1,0 +1,114 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LabMileshko8.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="using:LabMileshko8.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LabMileshko8.Views.MainWindow"
+        CanResize="False"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LabMileshko8">
+
+
+
+  <Grid RowDefinitions="30,35,*,30" ColumnDefinitions="*,*,*" ShowGridLines="False">
+    <DockPanel Grid.Row="0" Grid.ColumnSpan="3" Background="AntiqueWhite">
+      <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+        <MenuItem Header="_File">
+          <MenuItem Name="New" Header="New"/>
+          <MenuItem Name="Save" Header="Save"/>
+          <MenuItem Name="Load" Header="Load"/>
+          <Separator/>
+          <MenuItem Name="Exit" Header="Exit"/>
+        </MenuItem>
+        <MenuItem Name="About" Header="About">
+        </MenuItem>
+      </Menu>
+    </DockPanel>
+    
+    <Border Background="AliceBlue" BorderThickness="1, 1, 1, 1" BorderBrush="Black" Grid.Column="0" Grid.Row="1">
+      <TextBlock  Text="Запланировано" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+    </Border>
+    <Border Background="AliceBlue" BorderThickness="1, 1, 1, 1" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
+      <TextBlock Text="В работе" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+    </Border>
+    <Border Background="AliceBlue"  BorderThickness="1, 1, 1, 1" BorderBrush="Black" Grid.Column="2" Grid.Row="1">
+      <TextBlock Text="Завершено" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+    </Border>
+
+    <ScrollViewer Grid.Column="0" Grid.Row="2">
+      <ItemsControl  Background="AliceBlue" Items="{Binding Scheduled}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Expander  Header="{Binding Header}">
+              <StackPanel>
+                <TextBlock Text="Header:"/>
+                <TextBox Text="{Binding Header}" Watermark="Введите назавание" MinWidth="300" />
+                <TextBlock Text="Task:"/>
+                <TextBox  Text="{Binding Task}" Watermark="Введите описание задачи" MinWidth="300" MinHeight="150" TextWrapping="Wrap"/>
+                <Image Source="{Binding Image}"/>
+                <Button Content="Add Image" Command="{Binding $parent[ItemsControl].DataContext.ButtonAddImage}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                <Button Content="Delete" Command="{Binding $parent[ItemsControl].DataContext.DeleteScheduled}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+              </StackPanel>
+            </Expander>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    <Button Background="AntiqueWhite" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="AddScheduled" Grid.Row="3" Grid.Column="0" FontWeight="Bold"/>
+    
+    <ScrollViewer Grid.Column="1" Grid.Row="2">
+      <ItemsControl  Background="AliceBlue" Items="{Binding InWork}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Expander  Header="{Binding Header}">
+              <StackPanel>
+                <TextBlock Text="Header:"/>
+                <TextBox Text="{Binding Header}" Watermark="Введите назавание" MinWidth="300" />
+                <TextBlock Text="Task:"/>
+                <TextBox  Text="{Binding Task}" Watermark="Введите описание задачи" MinWidth="300" MinHeight="150" TextWrapping="Wrap"/>
+                <Image Source="{Binding Image}"/>
+                <Button Content="Add Image" Command="{Binding $parent[ItemsControl].DataContext.ButtonAddImage}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                <Button Content="Delete" Command="{Binding $parent[ItemsControl].DataContext.DeleteInWork}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+              </StackPanel>
+            </Expander>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    <Button Background="AntiqueWhite" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="AddInWork" Grid.Row="3" Grid.Column="1" FontWeight="Bold"/>
+    
+    <ScrollViewer Grid.Column="2" Grid.Row="2">
+      <ItemsControl  Background="AliceBlue" Items="{Binding Completed}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Expander  Header="{Binding Header}">
+              <StackPanel>
+                <TextBlock Text="Header:"/>
+                <TextBox Text="{Binding Header}" Watermark="Введите назавание" MinWidth="300" />
+                <TextBlock Text="Task:"/>
+                <TextBox  Text="{Binding Task}" Watermark="Введите описание задачи" MinWidth="300" MinHeight="150" TextWrapping="Wrap"/>
+                <Image Source="{Binding Image}"/>
+                <Button Content="Add Image" Command="{Binding $parent[ItemsControl].DataContext.ButtonAddImage}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                <Button Content="Delete" Command="{Binding $parent[ItemsControl].DataContext.DeleteCompleted}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+              </StackPanel>
+            </Expander>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    
+    <Button Background="AntiqueWhite" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="AddCompleted" Grid.Row="3" Grid.Column="2" FontWeight="Bold"/>
+    <Border Grid.Row="2" Grid.Column="0"  BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="2" Grid.Column="1" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="2" Grid.Column="2" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="3" Grid.Column="0" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="3" Grid.Column="1" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="3" Grid.Column="2" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="1, 1, 1, 1" BorderBrush="Black"/>
+
+  </Grid>
+
+
+</Window>
